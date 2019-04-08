@@ -27,12 +27,14 @@
 #include <string>
 using namespace std;
 
+enum Suit {spades, hearts, diamonds, clubs};
+
 class Card
 {
   public:
 
 
-    enum Suit {spades, hearts, diamonds, clubs};
+//    enum Suit {spades, hearts, diamonds, clubs};
     
     Card(); 	//default, ace of spades
 
@@ -42,7 +44,7 @@ class Card
     bool sameSuitAs(const Card& c) const;  //true if suit same as c
     int  getRank()                 const;  //return rank, 1..13
     string suitString(Suit s)      const;  //return "s", "h", ...
-    
+    Suit getSuit()		   const; 
     string rankString(int r)       const;  //return "A", "2", ..."Q"
 
     bool operator == (const Card& rhs) const;

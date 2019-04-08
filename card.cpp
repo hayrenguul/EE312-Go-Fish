@@ -14,7 +14,7 @@ using namespace std;
 	mySuit = s;
     }
 
-    string Card::toString() 
+    string Card::toString() const 
     {
 	string rank = rankString(myRank);
 	string suit = suitString(mySuit);
@@ -38,17 +38,23 @@ using namespace std;
 	}
     }
 
-    bool Card::sameSuitAs(const Card& c) 
+    bool Card::sameSuitAs(const Card& c) const
     {
-		
+	Suit c_s = c.getSuit();
+        return(c_s == mySuit);				
     }
 
-    int Card::getRank() 
+    int Card::getRank()  const
     {
 	return myRank;
     }
 
-    string Card::rankString(int r) 
+    Suit Card::getSuit()  const
+    {
+	return mySuit;
+    }
+
+    string Card::rankString(int r) const
     {
 	if(r == 1) {
 	    return "A";
@@ -91,12 +97,16 @@ using namespace std;
 	}
     }
     
-    bool Card::operator == (const Card& rhs)
+    bool Card::operator == (const Card& rhs)  const
     {
-    
+    	Suit rhs_s = rhs.getSuit();
+	int rhs_rank = rhs.getRank();
+	return( (rhs_s == mySuit) && (rhs_rank == myRank));
     }
 
-    bool Card::operator != (const Card& rhs)
+    bool Card::operator != (const Card& rhs)   const
     {
-
+	Suit rhs_s = rhs.getSuit();
+	int rhs_rank = rhs.getRank();
+	return( !( (rhs_s == mySuit) && (rhs_rank == myRank)) );
     }
