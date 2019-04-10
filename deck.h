@@ -1,18 +1,9 @@
-// FILE: deck.h
-// written by Owen Astrachan and Roger Priebe
-// this class represents a deck of cards
-// When a Deck is constructed, it contains 52 cards
-// in a "regular" order (aces, twos, threes, ... , kings)
 //
-// Shuffling a deck makes it consist of 52 cards in a random order
+// Created by Maldo on 4/8/2019.
 //
-// dealCard() returns a card from the deck and decreases the
-// number of cards in the deck (returned by size())
-// The idea is that after shuffling, calling dealCard() 52 times
-// returns each card in the deck after shuffling.
-//
-// Calling shuffle again replenishes the deck with 52 cards.
 
+//#ifndef ASSIGNMENT6_DECK_H
+//#define ASSIGNMENT6_DECK_H
 #ifndef _DECK_H
 #define _DECK_H
 
@@ -21,11 +12,11 @@
 
 class Deck
 {
-  static const int SIZE = 52;
-  
-  public:
-    
-    
+    static const int SIZE = 52;
+
+public:
+
+
     Deck();          // pristine, sorted deck
 
     void shuffle();  // shuffle the deck, all 52 cards present
@@ -33,11 +24,10 @@ class Deck
 
     int  size() const; // # cards left in the deck
 
-  private:
+private:
 
     Card myCards[SIZE];
     int myIndex;  // current card to deal
 };
 
 #endif
-

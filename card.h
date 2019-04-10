@@ -1,3 +1,7 @@
+//
+// Created by Maldo on 4/8/2019.
+//
+
 //File Name: card.h
 //
 //Written by Owen Astrachan and Roger Priebe
@@ -25,17 +29,21 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <ctime>
+#include <cstdlib>
+
 using namespace std;
 
 enum Suit {spades, hearts, diamonds, clubs};
 
 class Card
 {
-  public:
+public:
 
 
 //    enum Suit {spades, hearts, diamonds, clubs};
-    
+
     Card(); 	//default, ace of spades
 
     Card(int rank, Suit s);
@@ -44,19 +52,19 @@ class Card
     bool sameSuitAs(const Card& c) const;  //true if suit same as c
     int  getRank()                 const;  //return rank, 1..13
     string suitString(Suit s)      const;  //return "s", "h", ...
-    Suit getSuit()		   const; 
+    Suit getSuit()		   const;
     string rankString(int r)       const;  //return "A", "2", ..."Q"
 
     bool operator == (const Card& rhs) const;
     bool operator != (const Card& rhs) const;
-    
 
-    
-  private:
+
+
+private:
 
     int myRank;
     Suit mySuit;
-  
+
 };
 
 ostream& operator << (ostream& out, const Card& c);
