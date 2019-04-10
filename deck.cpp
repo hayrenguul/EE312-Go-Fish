@@ -50,6 +50,8 @@ Card Deck::dealCard()
     }
     else{
         cout << "deck empty" << endl;
+	Card c(0, spades);
+	return c;
     }
 
 

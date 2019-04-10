@@ -9,12 +9,12 @@
 using namespace std;
 
 
-void Player::addCard(Card c)
+void Player::addCard(Card c)		//fine
 {
     myHand.push_back(c);
 }
 
-void Player::bookCards(Card c1, Card c2)
+void Player::bookCards(Card c1, Card c2)	//fine
 {
     myBook.push_back(c1);
     myBook.push_back(c2);
@@ -25,7 +25,7 @@ void Player::bookCards(Card c1, Card c2)
 //{
 
 //optional
-bool Player::rankInHand(Card c) const
+bool Player::rankInHand(Card c) const		//this is fine
 {
     vector<Card>::const_iterator it;
     for (it = myHand.begin(); it != myHand.end(); it++){
@@ -36,7 +36,7 @@ bool Player::rankInHand(Card c) const
     return false;
 }
 
-Card Player::chooseCardFromHand() const
+Card Player::chooseCardFromHand() const				//this is fine
 {
     unsigned int currentTime = (unsigned)time(0);
     srand(currentTime);
@@ -46,7 +46,7 @@ Card Player::chooseCardFromHand() const
     return c;
 }
 
-bool Player::cardInHand(Card c) const
+bool Player::cardInHand(Card c) const		//fine
 {
     vector<Card>::const_iterator it;
     for (it = myHand.begin(); it != myHand.end(); it++){
@@ -64,9 +64,13 @@ Card Player::removeCardFromHand(Card c)
     for (it = myHand.begin(); it != myHand.end(); it++){
         if ( it->getRank() == c.getRank()){
             c2 = *it;
-            it = myHand.erase(it);
+            myHand.erase(it);
+	    return c2;	//new
         }
     }
+//new:
+    c2 = *it;
+    myHand.erase(it);
     return c2;
 }
 
@@ -106,20 +110,22 @@ int Player::getBookSize() const
     return ((myBook.size())/2);
 }
 //optional
-bool Player::checkHandForPair()
+void Player::checkHandForPair()		//remove
 {
     vector<Card>::iterator i;
     vector<Card>::iterator j;
     for (i = myHand.begin(); i != myHand.end(); i++){
         for (j = i+1; j != myHand.end(); j++){
             if (i->getRank() == j->getRank()){
-                myBook.push_back(*i);
+       		myBook.push_back(*i);
                 myBook.push_back(*j);
-                i = myHand.erase(i);
-                j = myHand.erase(j);
+                myHand.erase(i);
+                myHand.erase(j);
+		return;
             }
         }
     }
+    return;
 }
 //optional
 bool Player::sameRankInHand(Card c) const
