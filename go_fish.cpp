@@ -3,12 +3,15 @@
 #include "card.h"
 #include "deck.h"
 #include "player.h"
+#include <fstream>
 using namespace std;
 
 void dealHand(Deck &d, Player &p, int numCards);
 
 int main() {
 
+    ofstream goFish;
+    goFish.open ("go_fish_results.txt");
     Deck d;
     int numCards = 7;
     int flag = 0;
@@ -27,8 +30,8 @@ int main() {
 
     while (p1.getBookSize() +  p2.getBookSize() != 26){
 
-        cout << p1.getName() <<" has : " << p1.showHand() << endl;
-        cout << p2.getName() <<" has : " << p2.showHand() << endl;
+        goFish << p1.getName() <<" has : " << p1.showHand() << endl;
+        goFish << p2.getName() <<" has : " << p2.showHand() << endl;
         p1.checkHandForPair();
         p2.checkHandForPair();
         if(p1.getHandSize() == 0) {
@@ -44,9 +47,9 @@ int main() {
         if (flag != 1){
             Card check = p1.chooseCardFromHand();
             string ask = check.toString();  //string to add to file
-            cout << p1.getName() << " asks - Do you have a " << check.rankString(check.getRank()) << "?\n";
+            goFish << p1.getName() << " asks - Do you have a " << check.rankString(check.getRank()) << "?\n";
             if ( p2.rankInHand(check)){	//not crashing in rank in hand
-                cout << p2.getName() << " says - Yes I have a " << check.rankString(check.getRank()) << ".\n";
+                goFish << p2.getName() << " says - Yes I have a " << check.rankString(check.getRank()) << ".\n";
                 Card add = p2.removeCardFromHand(check);	//ok
                 //p1.addCard(add);
                 p1.bookCards(check, add);
@@ -56,7 +59,7 @@ int main() {
                 cout << p1.showHand() << endl;
             }
             else{
-                cout << p2.getName() << " says - Go Fish!\n";
+                goFish << p2.getName() << " says - Go Fish!\n";
                 Card deal = d.dealCard();
                 if(deal.getRank() != 0) {
                     p1.addCard(deal);
@@ -97,9 +100,9 @@ int main() {
         if ( flag != 1){
             Card check2 = p2.chooseCardFromHand();
             string ask2 = check2.toString();  //string to add to file
-            cout << p2.getName() << " asks - Do you have a " << check2.rankString(check2.getRank()) << "?\n";
+            goFish << p2.getName() << " asks - Do you have a " << check2.rankString(check2.getRank()) << "?\n";
             if ( p1.rankInHand(check2)){
-                cout << p1.getName() << " says - Yes I have a " << check2.rankString(check2.getRank()) << ".\n";
+                goFish << p1.getName() << " says - Yes I have a " << check2.rankString(check2.getRank()) << ".\n";
                 Card add = p1.removeCardFromHand(check2);
                 //p2.addCard(add);
                 p2.bookCards(check2, add);
@@ -150,11 +153,13 @@ int main() {
     int p1_score = p1.getBookSize();
     int p2_score = p2.getBookSize();
     if(p1_score > p2_score) {
-        cout << p1.getName() << " is the winner!\n";
+        goFish << p1.getName() << " is the winner!\n";
     }
     else {
-        cout << p2.getName() << " is the winner!\n";
+        goFish << p2.getName() << " is the winner!\n";
     }
+    goFish.close();
+
     return EXIT_SUCCESS;
 }
 
