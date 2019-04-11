@@ -25,7 +25,7 @@ void Deck::shuffle()
 {
     unsigned int currentTime = (unsigned)time(0);
     srand(currentTime);
-    int smallNum = 10;
+    int smallNum = 8;
     int swapNum = 300;
     int numCards = SIZE - 1;
     while(swapNum > 0){
@@ -38,16 +38,18 @@ void Deck::shuffle()
         myCards[card2] = temp;
         swapNum--;
     }
-    for (int i = 0; i < SIZE; i++ ){
+    /*for (int i = 0; i < SIZE; i++ ){
         //for (int j = i+1; j < SIZE; j++){
         if (myCards[i].getRank() == 13){
             long card1 = (rand() % smallNum);
             Card swap = myCards[i];
             Card swap2 = myCards[card1];
+            Card temp2 = swap;
             myCards[card1] = swap2;
-            myCards[i] = swap;
+            myCards[i] = temp2;
         }
     }
+     */
     myIndex = 0;
 }
 
