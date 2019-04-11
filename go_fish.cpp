@@ -15,18 +15,14 @@ int main() {
     Deck d;
     int numCards = 7;
     int flag = 0;
-    Player p1("Joe");
-    Player p2("Jane");
+    Player p1("Deku");
+    Player p2("Shigaraki");
 
-//    Deck d;  //create a deck of cards
     d.shuffle();
 
     dealHand(d, p1, numCards);
     dealHand(d, p2, numCards);
     Card deal;
-//    p1.checkHandForPair();
-
-    //  p2.checkHandForPair();
 
     while (p1.getBookSize() +  p2.getBookSize() != 26){
 
@@ -51,40 +47,20 @@ int main() {
             if ( p2.rankInHand(check)){	//not crashing in rank in hand
                 goFish << p2.getName() << " says - Yes I have a " << check.rankString(check.getRank()) << ".\n";
                 Card add = p2.removeCardFromHand(check);	//ok
-                //p1.addCard(add);
                 p1.bookCards(check, add);
                 p1.removeCardFromHand(check);
-                //p1.removeCardFromHand(add);
-                cout << p1.showBooks() << endl;
-                cout << p1.showHand() << endl;
+		goFish << p1.getName() << " books " << check.getRank() << endl << endl;
             }
             else{
                 goFish << p2.getName() << " says - Go Fish!\n";
                 Card deal = d.dealCard();
                 if(deal.getRank() != 0) {
                     p1.addCard(deal);
+		    goFish << p1.getName() << " draws " << deal.getRank() << endl << endl;
                 }
                 p1.checkHandForPair();
-                cout << p1.showHand() << endl;
-                cout << p1.showBooks() << endl;
-/*
-                deal = d.dealCard();
-                if(deal.getRank() != 0) {  //means deck wasn't empty
-                    p1.addCard(deal);
-		}
-                deal = d.dealCard();
-                if(deal.getRank() != 0) {  //means deck wasn't empty
-                    p1.addCard(deal);
-		}
-            }
-             if (p1.checkHandForPair()){	//check this
-                Card add2 = p1.removeCardFromHand(deal);	//check this
-                p1.bookCards(deal, add2);
-                p1.removeCardFromHand(deal);
-                p1.removeCardFromHand(add2);
-             }
-*/
-            }
+             
+            }	    
         }
 
 
@@ -97,6 +73,8 @@ int main() {
                 flag = 1;
             }
         }
+
+
         if ( flag != 1){
             Card check2 = p2.chooseCardFromHand();
             string ask2 = check2.toString();  //string to add to file
@@ -104,47 +82,21 @@ int main() {
             if ( p1.rankInHand(check2)){
                 goFish << p1.getName() << " says - Yes I have a " << check2.rankString(check2.getRank()) << ".\n";
                 Card add = p1.removeCardFromHand(check2);
-                //p2.addCard(add);
                 p2.bookCards(check2, add);
                 p2.removeCardFromHand(check2);
-                //p2.removeCardFromHand(add);
-                cout << p2.showHand() << endl;
-                cout << p2.showBooks() << endl;
+		goFish << p2.getName() << " books " << check2.getRank() << endl << endl;
             }
             else{
-                cout << p1.getName() << " says - Go Fish!\n";
+		goFish << p1.getName() << " says - Go Fish!\n";
                 Card deal = d.dealCard();
                 if (deal.getRank() != 0){
                     p2.addCard(deal);
+		    goFish << p2.getName() << " draws " << deal.getRank() << endl << endl;
 
                 }
-                //p2.addCard(deal);
                 p2.checkHandForPair();
-                cout << p2.showHand() << endl;
-                cout << p2.showBooks() << endl;
-/*
-	        check2 = d.dealCard();
-                if(check2.getRank() != 0) {  //means deck wasn't empty
-   		    p2.addCard(check2);
-	        }
-		check2 = d.dealCard();
-                if(deal.getRank() != 0) {  //means deck wasn't empty
- 		    p2.addCard(check2);
-		}
-*/
-
-                /*         if (p2.checkHandForPair()){
-                             Card add2 = p2.removeCardFromHand(deal);
-                             p2.bookCards(deal, add2);
-                             p2.removeCardFromHand(deal);
-                             p2.removeCardFromHand(add2);
-                         }
-             */
             }
-            cout << p1.showHand() << endl;
-            cout << p1.showBooks() << endl;
-            cout << p2.showHand() << endl;
-            cout << p2.showBooks() << endl;
+
         }
     }
 
@@ -152,11 +104,17 @@ int main() {
 
     int p1_score = p1.getBookSize();
     int p2_score = p2.getBookSize();
+    goFish << p1.getName() << "'s book has " << p1.showBooks() << endl;
+    goFish << p2.getName() << "'s book has " << p2.showBooks() << endl;
     if(p1_score > p2_score) {
-        goFish << p1.getName() << " is the winner!\n";
+	goFish << p1.getName() << " is the winner!\n";
     }
-    else {
+    if (p1_score < p2_score) {
         goFish << p2.getName() << " is the winner!\n";
+    }
+    if (p1_score == p2_score) {
+        goFish << " It's a tie!\n";
+
     }
     goFish.close();
 
