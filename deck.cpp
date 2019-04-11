@@ -1,7 +1,6 @@
 //
 // Created by Maldo on 4/8/2019.
 //
-
 #include "deck.h"
 
 #include <ctime>
@@ -26,6 +25,7 @@ void Deck::shuffle()
 {
     unsigned int currentTime = (unsigned)time(0);
     srand(currentTime);
+    int smallNum = 10;
     int swapNum = 300;
     int numCards = SIZE - 1;
     while(swapNum > 0){
@@ -37,6 +37,16 @@ void Deck::shuffle()
         myCards[card1] = c2;
         myCards[card2] = temp;
         swapNum--;
+    }
+    for (int i = 0; i < SIZE; i++ ){
+        //for (int j = i+1; j < SIZE; j++){
+        if (myCards[i].getRank() == 13){
+            long card1 = (rand() % smallNum);
+            Card swap = myCards[i];
+            Card swap2 = myCards[card1];
+            myCards[card1] = swap2;
+            myCards[i] = swap;
+        }
     }
     myIndex = 0;
 }
@@ -50,8 +60,8 @@ Card Deck::dealCard()
     }
     else{
         cout << "deck empty" << endl;
-	Card c(0, spades);
-	return c;
+        Card c(0, spades);
+        return c;
     }
 
 

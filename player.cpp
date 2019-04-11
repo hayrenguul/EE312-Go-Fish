@@ -43,6 +43,7 @@ Card Player::chooseCardFromHand() const				//this is fine
     int sizeHand = myHand.size();
     long card1 = (rand() % sizeHand);
     Card c = myHand.at(card1);
+
     return c;
 }
 
@@ -65,13 +66,13 @@ Card Player::removeCardFromHand(Card c)
         if ( it->getRank() == c.getRank()){
             c2 = *it;
             myHand.erase(it);
-	    return c2;	//new
+            return c2;	//new
         }
     }
 //new:
-    c2 = *it;
-    myHand.erase(it);
-    return c2;
+   //c2 = *it;
+   // myHand.erase(it);
+   //return c2;
 }
 
 string Player::showHand() const
@@ -117,11 +118,11 @@ void Player::checkHandForPair()		//remove
     for (i = myHand.begin(); i != myHand.end(); i++){
         for (j = i+1; j != myHand.end(); j++){
             if (i->getRank() == j->getRank()){
-       		myBook.push_back(*i);
+                myBook.push_back(*i);
                 myBook.push_back(*j);
-                myHand.erase(i);
                 myHand.erase(j);
-		return;
+                myHand.erase(i);
+                return;
             }
         }
     }
@@ -132,4 +133,3 @@ bool Player::sameRankInHand(Card c) const
 {
 
 }
-
